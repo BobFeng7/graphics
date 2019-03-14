@@ -62,27 +62,27 @@ uniforms.resolution.value.y = window.innerHeight;
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-var shaderMaterial = new THREE.ShaderMaterial (
-{
-  uniforms: uniforms,
-  vertexShader: document.getElementById("vertexShader").textContent,
-  fragmentShader: document.getElementById("fragmentShader").textContent,
-  transparent: true,
-  wireframe: true
-});
-shaderSphere = new THREE.Mesh( new THREE.SphereBufferGeometry( 7, 32, 32 ), shaderMaterial );
-scene.add( shaderSphere );
+// var shaderMaterial = new THREE.ShaderMaterial (
+// {
+//   uniforms: uniforms,
+//   vertexShader: document.getElementById("vertexShader").textContent,
+//   fragmentShader: document.getElementById("fragmentShader").textContent,
+//   transparent: true,
+//   wireframe: true
+// });
+// shaderSphere = new THREE.Mesh( new THREE.SphereBufferGeometry( 7, 32, 32 ), shaderMaterial );
+// scene.add( shaderSphere );
 
-var shaderMaterial = new THREE.ShaderMaterial (
-{
-  uniforms: uniforms,
-  vertexShader: document.getElementById("vertexShader2").textContent,
-  fragmentShader: document.getElementById("fragmentShader").textContent,
-  transparent: true,
-  wireframe: true
-});
-shaderSphere2 = new THREE.Mesh( new THREE.SphereBufferGeometry( 7, 32, 32 ), shaderMaterial );
-scene.add( shaderSphere2 );
+// var shaderMaterial = new THREE.ShaderMaterial (
+// {
+//   uniforms: uniforms,
+//   vertexShader: document.getElementById("vertexShader2").textContent,
+//   fragmentShader: document.getElementById("fragmentShader").textContent,
+//   transparent: true,
+//   wireframe: true
+// });
+// shaderSphere2 = new THREE.Mesh( new THREE.SphereBufferGeometry( 7, 32, 32 ), shaderMaterial );
+// scene.add( shaderSphere2 );
 
 
 
@@ -170,7 +170,6 @@ var sphereHandler = function ( )
 
   rotator( sphere );
   rotator( sphere2 );
-  rotator( shaderSphere );
 
 }
 

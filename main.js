@@ -127,17 +127,23 @@ var invClockScaler = function ( obj )
 };
 
 
-var clockRotator = function ( obj ) 
+var clockRotatorSin = function ( obj ) 
 {
   var t = uniforms.time.value/2;
   obj.rotation.set( Math.sin( t ), Math.cos( t ), Math.tan( t ) );
 };
 
 
-var invClockRotator = function ( obj ) 
+var clockRotatorCos = function ( obj ) 
 {
   var t = uniforms.time.value/2;
-  obj.rotation.set( Math.cos( t ), Math.sin( t ), Math.tan( t ) );
+  obj.rotation.set( Math.cos( t ), Math.tan( t ), Math.sin( t ) );
+}
+
+var clockRotatorTan = function ( obj ) 
+{
+  var t = uniforms.time.value/2;
+  obj.rotation.set( Math.tan( t ), Math.sin( t ), Math.cos( t ) );
 }
 
 
@@ -151,13 +157,13 @@ var rotator = function ( obj )
 
 var sphereHandler = function ( ) 
 {
-  clockRotator( sphere );
+  clockRotatorSin( sphere );
   clockScaler( sphere );
   
-  clockRotator( sphere2 );
+  clockRotatorCos( sphere2 );
   invClockScaler( sphere2 );
 
-  clockRotator( sphere3 );
+  clockRotatorTan( sphere3 );
 }
 
 

@@ -7,7 +7,7 @@
     </style>
   </head>
   <body>
-    <label id="guide" style="position:fixed;color:white; margin:10px;">Drag and zoom.</label>
+    <label id="guide" style="position:fixed;color:white; margin:10px;"><h2>Drag and zoom.</h2></label>
 
     <script id="vertexShader" type="x-shader/x-vertex">
       uniform float time; 
@@ -41,6 +41,7 @@
       }
     </script>
 
+
     <script id="fragmentShader2" type="x-shader/x-fragment">
       uniform float time; 
       uniform vec2 resolution; 
@@ -50,6 +51,7 @@
         gl_FragColor = colorRandom;
       }
     </script>
+
 
     <script src="three.js"></script>
     <script src="OrbitControls.js"></script>

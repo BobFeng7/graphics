@@ -20,6 +20,7 @@
       }
     </script>
 
+
     <script id="vertexShader2" type="x-shader/x-vertex">
       uniform float time; 
       uniform vec2 resolution; 
@@ -45,8 +46,6 @@
         vec3 color = vec3(0.0);
         float pct = abs(sin(time));
 
-        // Mix uses pct (a value from 0-1) to
-        // mix the two colors
         color = mix(colorA, colorB, pct);
 
         gl_FragColor = colorRandom;

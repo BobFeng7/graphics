@@ -22,7 +22,7 @@
 
     <script id="vertexShader2" type="x-shader/x-vertex">
       uniform float time; 
-      uniform vec2 resolution; 
+      uniform vec2 resolution;
       void main() 
       { 
         vec4 projected = projectionMatrix * modelViewMatrix * vec4(position - vec3((sin(time)), abs(cos(time)), (tan(time))), 1.0);
@@ -34,13 +34,9 @@
     <script id="fragmentShader" type="x-shader/x-fragment">
       uniform float time; 
       uniform vec2 resolution; 
-
-
       vec4 colorRandom = vec4(abs(sin(time)), abs(cos(time)), abs(tan(time)), 0.2);
-
       void main() {
         //color = mix(colorA, colorB, pct);
-
         gl_FragColor = colorRandom;
       }
     </script>
@@ -48,13 +44,9 @@
     <script id="fragmentShader2" type="x-shader/x-fragment">
       uniform float time; 
       uniform vec2 resolution; 
-
-
       vec4 colorRandom = vec4(abs(cos(time)), abs(sin(time)), abs(tan(time)), 0.2);
-
       void main() {
         //color = mix(colorA, colorB, pct);
-
         gl_FragColor = colorRandom;
       }
     </script>
@@ -64,7 +56,6 @@
     <script src="main.js"></script>
 
     <script> 
-    // create orbit control object
     controls = new THREE.OrbitControls( camera, renderer.domElement );
     </script>
 

@@ -121,32 +121,10 @@ var setTimer = function ( time )
   }, time);
 };
 
-
-// set constants for scalers
-var scaleClock = new THREE.Clock;
-var rotatorClock = new THREE.Clock;
-var t_ = 4;
-var s = -1;
-var f = 1;
-
-
 // sphere shrinking
 var clockScaler = function ( obj ) 
 {
-  var t = scaleClock.getElapsedTime( );
-  
-  // if ( t >= t_ )
-  // {
-  //   scaleClock = new THREE.Clock;
-  //   s = s * -1;
-  //   f = 1 - f;
-  // }
-  // else
-  // {
-  //   obj.scale.x = f + ( s * ( t / t_ ) );
-  //   obj.scale.y = f + ( s * ( t / t_ ) );
-  //   obj.scale.z = f + ( s * ( t / t_ ) );
-  // }
+  var t = uniforms.time.value;
   
   obj.scale.x = Math.abs(Math.cos(t));
   obj.scale.y = Math.abs(Math.cos(t));
@@ -154,10 +132,9 @@ var clockScaler = function ( obj )
   
 };
 
-
 var clockRotator = function ( obj ) 
 {
-  var t = rotatorClock.getElapsedTime( );
+  var t = uniforms.time.value;
   obj.rotation.set( Math.sin( t ), Math.cos( t ) , Math.tan( t ) );
 };
 
@@ -172,10 +149,6 @@ var sphereHandler = function ( )
 {
   clockScaler( sphere );
   clockRotator( sphere2 );
-
-  rotator( sphere );
-  rotator( sphere2 );
-
 }
 
 
@@ -188,6 +161,9 @@ var sphereHandler = function ( )
 // Called every frame at anything you're checking, if you're moving something etc.
 var update = function ( ) 
 {
+  var elapsedMilliseconds = Date.now() - startTime;
+  var elapsedSeconds = elapsedMilliseconds / 1000;
+  uniforms.time.value = elapsedSeconds / 2;
   sphereHandler( );
   // meshClockRotator( torusKnot1 );
 };
@@ -195,9 +171,7 @@ var update = function ( )
 // Called every frame to draw the scene
 var render = function ( ) 
 {
-  var elapsedMilliseconds = Date.now() - startTime;
-  var elapsedSeconds = elapsedMilliseconds / 1000;
-  uniforms.time.value = elapsedSeconds;
+  
   renderer.render( scene, camera );
 };
 

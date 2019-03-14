@@ -77,7 +77,7 @@ var shaderMaterial = new THREE.ShaderMaterial (
 {
   uniforms: uniforms,
   vertexShader: document.getElementById("vertexShader2").textContent,
-  fragmentShader: document.getElementById("fragmentShader").textContent,
+  fragmentShader: document.getElementById("fragmentShader2").textContent,
   transparent: true,
   wireframe: true
 });

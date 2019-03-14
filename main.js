@@ -135,18 +135,23 @@ var clockScaler = function ( obj )
 {
   var t = scaleClock.getElapsedTime( );
   
-  if ( t >= t_ )
-  {
-    scaleClock = new THREE.Clock;
-    s = s * -1;
-    f = 1 - f;
-  }
-  else
-  {
-    obj.scale.x = f + ( s * ( t / t_ ) );
-    obj.scale.y = f + ( s * ( t / t_ ) );
-    obj.scale.z = f + ( s * ( t / t_ ) );
-  }
+  // if ( t >= t_ )
+  // {
+  //   scaleClock = new THREE.Clock;
+  //   s = s * -1;
+  //   f = 1 - f;
+  // }
+  // else
+  // {
+  //   obj.scale.x = f + ( s * ( t / t_ ) );
+  //   obj.scale.y = f + ( s * ( t / t_ ) );
+  //   obj.scale.z = f + ( s * ( t / t_ ) );
+  // }
+  
+  obj.scale.x = Math.abs(Math.cos(t));
+  obj.scale.y = Math.abs(Math.cos(t));
+  obj.scale.z = Math.abs(Math.cos(t));
+  
 };
 
 

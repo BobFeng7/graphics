@@ -114,7 +114,6 @@ var setTimer = function ( time )
 var clockScaler = function ( obj ) 
 {
   var t = uniforms.time.value/2;
-  
   obj.scale.set( Math.abs( Math.cos( t ) ), Math.abs( Math.cos( t ) ), Math.abs( Math.cos( t ) ) );
 };
 
@@ -122,8 +121,8 @@ var clockScaler = function ( obj )
 var invClockScaler = function ( obj ) 
 {
   var t = uniforms.time.value/2;
-  
   obj.scale.set( 1/Math.abs( Math.cos( t ) ), 1/Math.abs( Math.cos( t ) ), 1/Math.abs( Math.cos( t ) ) );
+  // NOTE: using tan for all three creates a 0 to inf scaling obj
 };
 
 

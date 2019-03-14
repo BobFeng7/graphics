@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Basic Three.js App</title>
+    <style>
+      html, body { margin: 0; padding: 0; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+
+
+
+    <script id="vertexShader" type="x-shader/x-vertex">
+      uniform float time; 
+      uniform vec2 resolution; 
+      void main() 
+      { 
+        vec4 projected = projectionMatrix * modelViewMatrix * vec4(position + vec3((sin(time)), abs(cos(time)), (tan(time))), 1.0);
+        gl_Position = projected; 
+      }
+    </script>
+
+    <script id="vertexShader2" type="x-shader/x-vertex">
+      uniform float time; 
+      uniform vec2 resolution; 
+      void main() 
+      { 
+        vec4 projected = projectionMatrix * modelViewMatrix * vec4(position - vec3((sin(time)), abs(cos(time)), (tan(time))), 1.0);
+        gl_Position = projected; 
+      }
+    </script>
+
+
+    <script id="fragmentShader" type="x-shader/x-fragment">
+      uniform float time; 
+      uniform vec2 resolution; 
+
+
+      vec4 colorRandom = vec4(abs(sin(time)), abs(cos(time)), abs(tan(time)), 0.2);
+
+      vec3 colorA = vec3(0.149,0.141,0.912);
+      vec3 colorB = vec3(1.000,0.833,0.224);
+
+      void main() {
+        vec3 color = vec3(0.0);
+        float pct = abs(sin(time));
+
+        // Mix uses pct (a value from 0-1) to
+        // mix the two colors
+        color = mix(colorA, colorB, pct);
+
+        gl_FragColor = colorRandom;
+      }
+    </script>
+
+    <script src="three.js"></script>
+    <script src="OrbitControls.js"></script>
+    <script src="main.js"></script>
+
+    <script> 
+    // create orbit control object
+    controls = new THREE.OrbitControls( camera, renderer.domElement );
+    </script>
+
+    
+
+    
+  </body>
+</html>

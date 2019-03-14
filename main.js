@@ -22,7 +22,7 @@ window.addEventListener( 'resize', function ( )
 });
 
 // Move camera to initial orientation
-camera.position.z = 15;
+camera.position.set( 15, 0, 0 );
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
@@ -30,11 +30,7 @@ camera.position.z = 15;
 // |                           Shader Stuff                                    | 
 // |                                                                           | 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// const canvas = document.querySelector("#glCanvas");
-// // Initialize the GL context
-// const gl = canvas.getContext("webgl");
-const gl = renderer.domElement.getContext("webgl");
-
+const gl = renderer.domElement.getContext( "webgl" );
 
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
@@ -47,6 +43,7 @@ var mouseX = 0,
   theta = 0;
 
 var aspectRatio = window.innerWidth / window.innerHeight;
+
 uniforms = {
   time: { type: "f", value: 1.0 },
   resolution: { type: "v2", value: new THREE.Vector2( ) }
@@ -70,10 +67,10 @@ var shaderMaterial = new THREE.ShaderMaterial (
   transparent: true,
   wireframe: true
 });
-shaderSphere = new THREE.Mesh( new THREE.SphereBufferGeometry( 7, 32, 32 ), shaderMaterial );
+shaderSphere = new THREE.Mesh( new THREE.SphereBufferGeometry( 7, 36, 36 ), shaderMaterial );
 scene.add( shaderSphere );
 
-var shaderMaterial = new THREE.ShaderMaterial (
+var shaderMaterial2 = new THREE.ShaderMaterial (
 {
   uniforms: uniforms,
   vertexShader: document.getElementById("vertexShader2").textContent,
@@ -81,28 +78,20 @@ var shaderMaterial = new THREE.ShaderMaterial (
   transparent: true,
   wireframe: true
 });
-shaderSphere2 = new THREE.Mesh( new THREE.SphereBufferGeometry( 7, 32, 32 ), shaderMaterial );
+shaderSphere2 = new THREE.Mesh( new THREE.SphereBufferGeometry( 7, 36, 36 ), shaderMaterial2 );
 scene.add( shaderSphere2 );
 
 
-
-
-var sphereGeometry = new THREE.SphereGeometry( 5, 32, 32 )
-var sphereGeometry2 = new THREE.SphereGeometry( 5, 32, 32 )
+var sphereGeometry = new THREE.SphereGeometry( 5, 30, 30 )
+var sphereGeometry2 = new THREE.SphereGeometry( 5, 30, 30 )
 var sphereMaterial = new THREE.MeshNormalMaterial( { wireframe: true } );
 var sphereMaterial2 = new THREE.MeshNormalMaterial( { wireframe: true } );
 var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
 var sphere2 = new THREE.Mesh( sphereGeometry2, sphereMaterial2 );
+var sphere3 = new THREE.Mesh( sphereGeometry2, sphereMaterial2 );
 scene.add( sphere );
 scene.add( sphere2 );
-
-
-
-// var torusKnotGeometry = new THREE.TorusKnotGeometry(  5, 0.5, 128, 32 );
-// var torusKnotMaterial = new THREE.MeshNormalMaterial( { wireframe: true } );
-// var torusKnot1 = new THREE.Mesh( torusKnotGeometry, torusKnotMaterial );
-// scene.add( torusKnot1 );
-
+scene.add( sphere3 );
 
 
 
@@ -121,22 +110,36 @@ var setTimer = function ( time )
   }, time);
 };
 
-// sphere shrinking
+
 var clockScaler = function ( obj ) 
 {
-  var t = uniforms.time.value;
+  var t = uniforms.time.value/2;
   
-  obj.scale.x = Math.abs(Math.cos(t));
-  obj.scale.y = Math.abs(Math.cos(t));
-  obj.scale.z = Math.abs(Math.cos(t));
-  
+  obj.scale.set( Math.abs( Math.cos( t ) ), Math.abs( Math.cos( t ) ), Math.abs( Math.cos( t ) ) );
 };
+
+
+var invClockScaler = function ( obj ) 
+{
+  var t = uniforms.time.value/2;
+  
+  obj.scale.set( 1/Math.abs( Math.cos( t ) ), 1/Math.abs( Math.cos( t ) ), 1/Math.abs( Math.cos( t ) ) );
+};
+
 
 var clockRotator = function ( obj ) 
 {
-  var t = uniforms.time.value;
-  obj.rotation.set( Math.sin( t ), Math.cos( t ) , Math.tan( t ) );
+  var t = uniforms.time.value/2;
+  obj.rotation.set( Math.sin( t ), Math.cos( t ), Math.tan( t ) );
 };
+
+
+var invClockRotator = function ( obj ) 
+{
+  var t = uniforms.time.value/2;
+  obj.rotation.set( Math.cos( t ), Math.sin( t ), Math.tan( t ) );
+}
+
 
 var rotator = function ( obj ) 
 {
@@ -145,10 +148,16 @@ var rotator = function ( obj )
   obj.rotation.z += 0.005;
 }
 
+
 var sphereHandler = function ( ) 
 {
+  clockRotator( sphere );
   clockScaler( sphere );
+  
   clockRotator( sphere2 );
+  invClockScaler( sphere2 );
+
+  clockRotator( sphere3 );
 }
 
 

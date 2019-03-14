@@ -22,7 +22,7 @@ window.addEventListener( 'resize', function ( )
 });
 
 // Move camera to initial orientation
-camera.position.set( 15, 0, 0 );
+camera.position.set( 25, 0, 0 );
 
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 

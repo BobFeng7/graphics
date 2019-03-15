@@ -1,13 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+
     <title>Basic Three.js App</title>
+
     <style>
       html, body { margin: 0; padding: 0; overflow: hidden; }
     </style>
   </head>
+
+
+
   <body>
-    <label id="guide" style="position:fixed;color:white; margin:10px;"><h2>Drag and zoom.</h2></label>
+    <label id="guide" style="position:fixed;color:white; margin:10px;">Drag and drop a mp3 file</label>
 
     <script id="vertexShader" type="x-shader/x-vertex">
       uniform float time; 
@@ -52,17 +63,12 @@
       }
     </script>
 
-
+    <script src="jquery-2.1.1.js"></script>
     <script src="three.js"></script>
     <script src="OrbitControls.js"></script>
     <script src="main.js"></script>
+    <!-- <script src="Site.js"></script> -->
 
-    <script> 
-    controls = new THREE.OrbitControls( camera, renderer.domElement );
-    </script>
 
-    
-
-    
   </body>
 </html>

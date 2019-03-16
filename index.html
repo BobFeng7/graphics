@@ -23,25 +23,17 @@
   <script id="vertexShader" type="x-shader/x-vertex">
       uniform float time; 
       uniform vec2 resolution; 
-      void main() 
-      { 
+      varying vec4 _position;
+
+      void main() { 
         vec3 shift = vec3((sin(time)), abs(cos(time)), (tan(time)));
         shift = vec3(0.0, 0.0, 0.0);
         vec4 projected = projectionMatrix * modelViewMatrix * vec4(position + shift, 1.0);
         gl_Position = projected; 
-      }
-    </script>
-
-
-    <script id="vertexShader2" type="x-shader/x-vertex">
-      uniform float time; 
-      uniform vec2 resolution;
-      void main() 
-      { 
-        vec3 shift = vec3((sin(time)), abs(cos(time)), (tan(time)));
-        shift = vec3(0.0, 0.0, 0.0);
-        vec4 projected = projectionMatrix * modelViewMatrix * vec4(position - shift, 1.0);
-        gl_Position = projected;  
+        float x = abs(sin(time + projected.x) * 1.0);
+        float y = abs(cos(time + projected.y) * 1.0);
+        float z = abs(1.0 - sin(time + projected.z) * 1.0);
+        _position = vec4(x, y, z, 1.0);
       }
     </script>
 
@@ -49,7 +41,8 @@
     <script id="fragmentShaderSin" type="x-shader/x-fragment">
       uniform float time; 
       uniform vec2 resolution; 
-      vec4 colorRandom = vec4(abs(sin(time)), abs(cos(time)), abs(1.0-sin(time)), 0.2);
+      varying vec4 _position;
+      vec4 colorRandom = vec4(abs(sin(time)), abs(cos(time)), abs(1.0-sin(time)), 0.3);
       void main() {
         gl_FragColor = colorRandom;
       }
@@ -58,18 +51,20 @@
     <script id="fragmentShaderCos" type="x-shader/x-fragment">
       uniform float time; 
       uniform vec2 resolution; 
-      vec4 colorRandom = vec4(abs(cos(time)), abs(sin(time)), abs(1.0-cos(time)), 0.2);
+      varying vec4 _position;
+      vec4 colorRandom = vec4(abs(cos(time)), abs(sin(time)), abs(1.0-cos(time)), 0.3);
       void main() {
         gl_FragColor = colorRandom;
       }
     </script>
 
-    <script id="fragmentShaderTan" type="x-shader/x-fragment">
+    <script id="fragmentShaderBall" type="x-shader/x-fragment">
       uniform float time; 
-      uniform vec2 resolution; 
-      vec4 colorRandom = vec4(abs(tan(time)), abs(sin(time)), abs(cos(time)), 0.2);
+      uniform vec2 resolution;
+      varying vec4 _position; 
+
       void main() {
-        gl_FragColor = colorRandom;
+        gl_FragColor = _position;
       }
     </script>
 </body>

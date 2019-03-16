@@ -18,9 +18,9 @@ html, body{
   overflow: hidden;
   height: 100vh;
   width: 100vw;
-  background: var(--bgColor);
-  background: linear-gradient(135deg, var(--bgColor), var(--bgColorLight));
-  color: var(--textColor);
+  background: black;
+  /*background: linear-gradient(135deg, black, black);*/
+  color: black;
   font-family: 'Saira', sans-serif;
   position: relative;
 }
@@ -41,14 +41,12 @@ html, body{
 audio {
   position: fixed;
   left: 10px;
-  bottom: -10px;
+  bottom: 20px;
   width: calc(100% - 20px);
-  display:none;
 }
 
 audio.active{
-  height:20px;
-  display: none;
+  bottom: 20px;
 }
 
 #thefile{
@@ -69,11 +67,11 @@ label.file{
   padding: 1rem 2rem;
   border-radius: 4px;
   
-  background: var(--paperColor);
-  color: var(--textColor);
+  background: #262626;
+  color: white;
   font-size: 1.25em;
   font-weight: 700;
-  box-shadow: 0 20px 60px var(--shadowColorFaint);
+  box-shadow: 0 20px 60px #1a1a1a;
 
   cursor: pointer;
 }
@@ -87,7 +85,6 @@ label.file:hover{
 label.file:active{
     background: var(--paperColorDark);
     transform: translate3d(-50%, -45%, 0);
-    /*display: none;*/
 }
 
 label.file.normal{
@@ -96,5 +93,4 @@ label.file.normal{
   font-size: 1rem;
   top: 0;
   left: 0;
-  display:none;
 }

@@ -13,10 +13,12 @@ function initialize( ) {
   var fileLabel = document.querySelector("label.file");
   
   document.onload = function(e){
-    console.log(e);
+    fileLabel.classList.add('normal');
+    audio.classList.add('active');
     audio.play();
     play();
-  }
+}
+  
   file.onchange = function(){
     fileLabel.classList.add('normal');
     audio.classList.add('active');
@@ -85,32 +87,6 @@ function play( ) {
     uniforms.resolution.value.x = window.innerWidth;
     uniforms.resolution.value.y = window.innerHeight;
 
-    // var sphereBufferGeometry = new THREE.SphereBufferGeometry( 12, 36, 36 );
-    // var shaderMaterial = new THREE.ShaderMaterial ({
-    //     uniforms: uniforms,
-    //     vertexShader: document.getElementById("vertexShader").textContent,
-    //     fragmentShader: document.getElementById("fragmentShader").textContent,
-    //     transparent: true,
-    //     wireframe: true
-    // });
-    // shaderSphere = new THREE.Mesh( sphereBufferGeometry, shaderMaterial );
-    // shaderSphere.position.set(-45, 0, 0);
-    // group.add( shaderSphere );
-    
-
-    // var shaderMaterial2 = new THREE.ShaderMaterial ({
-    //     uniforms: uniforms,
-    //     vertexShader: document.getElementById("vertexShader2").textContent,
-    //     fragmentShader: document.getElementById("fragmentShader").textContent,
-    //     transparent: true,
-    //     wireframe: true
-    // });
-    // shaderSphere2 = new THREE.Mesh( sphereBufferGeometry, shaderMaterial2 );
-    // shaderSphere2.position.set(45, 0, 0);
-    // group.add( shaderSphere2 );
-
-
-
 
 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
@@ -119,7 +95,7 @@ function play( ) {
   // |                                                                           | 
   // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    var planeGeometry = new THREE.PlaneGeometry( 1000, 1000, 30, 30 );
+    var planeGeometry = new THREE.PlaneGeometry( 800, 800, 25, 25 );
     // var planeMaterial = new THREE.MeshNormalMaterial({
     //     color: 0x6904ce,
     //     side: THREE.DoubleSide,
@@ -145,49 +121,72 @@ function play( ) {
     
     var plane = new THREE.Mesh( planeGeometry, planeMaterialSin );
     plane.rotation.x = 0.5 * Math.PI;
-    plane.position.set( 0, 45, 0 );
+    plane.position.set( 0, 75, 0 );
     group.add( plane );
     
     var plane2 = new THREE.Mesh( planeGeometry, planeMaterialCos );
     plane2.rotation.x = -0.5 * Math.PI;
-    plane2.position.set( 0, -45, 0 );
+    plane2.position.set( 0, -75, 0 );
     group.add( plane2 );
 
-    var ballGeometry = new THREE.IcosahedronGeometry( 10, 4 );
+    // var ballGeometry = new THREE.IcosahedronGeometry( 10, 4 );
     var sphereGeometry = new THREE.SphereGeometry( 10, 64, 64 );
-    // var ballMaterial = new THREE.MeshLambertMaterial({
-    //     color: 0xff00ee,
-    //     wireframe: true
-    // });
-    var ballMaterial = new THREE.ShaderMaterial ({
-        uniforms: uniforms,
-        vertexShader: document.getElementById("vertexShader").textContent,
-        fragmentShader: document.getElementById("fragmentShaderTan").textContent,
-        transparent: true,
-        wireframe: true,
+    var ballMaterial = new THREE.MeshLambertMaterial({
+        // color: 0x000000,
+        // vertexColors: THREE.FaceColors,
+        // transparent: true,
+        wireframe: true
     });
 
     // var ball = new THREE.Mesh( ballGeometry, ballMaterial );
     var ball = new THREE.Mesh( sphereGeometry, ballMaterial );
-    ball.position.set( 0, 0, 0 );
     group.add( ball );
 
-    var ambientLight = new THREE.AmbientLight( 0xaaaaaa );
-    // scene.add( ambientLight );
+    var ambientLight = new THREE.AmbientLight( 0x5900b3 );
+    ambientLight.intensity = 0.3;
+    scene.add( ambientLight );
 
-    var spotLight = new THREE.SpotLight( 0xffffff );
+    var spotLight = new THREE.SpotLight( 0x000099 );
     spotLight.intensity = 0.9;
-    spotLight.position.set(-10, 40, 20);
+    spotLight.position.set(0, 55, 0);
     spotLight.lookAt( ball );
     spotLight.castShadow = true;
-    // scene.add( spotLight );
+    group.add( spotLight );
 
-    var sphereGeometry = new THREE.SphereBufferGeometry( 12, 36, 36 )
-    var sphereMaterial = new THREE.MeshNormalMaterial( { wireframe: true } );
-    var sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
-    // group.add( sphere );
+    var spotLight2 = new THREE.SpotLight( 0x990000 );
+    spotLight2.intensity = 0.9;
+    spotLight2.position.set(0, -55, 0);
+    spotLight2.lookAt( ball );
+    spotLight2.castShadow = true;
+    group.add( spotLight2 );
 
+    // var spotLight = new THREE.SpotLight( 0xff00ff );
+    // spotLight.intensity = 0.9;
+    // spotLight.position.set(75, 0, 0);
+    // spotLight.lookAt( ball );
+    // spotLight.castShadow = true;
+    // group.add( spotLight );
 
+    // var spotLight = new THREE.SpotLight( 0x00ffff );
+    // spotLight.intensity = 0.9;
+    // spotLight.position.set(-75, 0, 0);
+    // spotLight.lookAt( ball );
+    // spotLight.castShadow = true;
+    // group.add( spotLight );
+
+    // var spotLight = new THREE.SpotLight( 0xff00ff );
+    // spotLight.intensity = 0.9;
+    // spotLight.position.set(0, 0, 75);
+    // spotLight.lookAt( ball );
+    // spotLight.castShadow = true;
+    // group.add( spotLight );
+
+    // var spotLight = new THREE.SpotLight( 0x0000ff );
+    // spotLight.intensity = 0.9;
+    // spotLight.position.set(0, 0, -75);
+    // spotLight.lookAt( ball );
+    // spotLight.castShadow = true;
+    // group.add( spotLight );
 
 
 
@@ -203,7 +202,7 @@ function play( ) {
     function update( ) {
         var elapsedMilliseconds = Date.now() - startTime;
         var elapsedSeconds = elapsedMilliseconds / 1000;
-        uniforms.time.value = elapsedSeconds / 2;
+        uniforms.time.value = elapsedSeconds / 4;
 
     }
 
@@ -241,20 +240,51 @@ function play( ) {
 
 
     function makeRoughBall(mesh, bassFr, treFr) {
-        mesh.geometry.vertices.forEach(function (vertex, i) {
+        var vertices = mesh.geometry.vertices
+        var faces = mesh.geometry.faces;
+
+        var x;
+        for ( var i = 0; i < faces.length; i++ ) {
+            var vertex;
+            if (i % 2 == 0) {
+                vertex = vertices[i/2];
+
+                var offset = mesh.geometry.parameters.radius;
+                var amp = 7;
+                var time = window.performance.now();
+                vertex.normalize();
+                var rf = 0.00001;
+                var distance = (offset + bassFr) + noise.noise3D( vertex.x + time *rf*7, vertex.y +  time*rf*8, vertex.z + time*rf*9 ) * amp * treFr;
+                vertex.multiplyScalar( distance );
+            }
+            
+
+            var face = faces[i];
+
+            x = Math.sqrt(vertex.x * vertex.x + vertex.y * vertex.y + vertex.z * vertex.z);
+            // face.color = new THREE.Color( vertex.x/x, vertex.y/x, vertex.z/x, 0.1 );    
+        }
+
+        // corrective for missing vertices
+        for ( var j = vertices.length - (faces.length % vertices.length); j < vertices.length; j ++ ) {
+            var vertex = vertices[j];
             var offset = mesh.geometry.parameters.radius;
             var amp = 7;
             var time = window.performance.now();
             vertex.normalize();
             var rf = 0.00001;
-            var distance = (offset + bassFr ) + noise.noise3D(vertex.x + time *rf*7, vertex.y +  time*rf*8, vertex.z + time*rf*9) * amp * treFr;
+            var distance = (offset + bassFr) + noise.noise3D(vertex.x + time *rf*7, vertex.y +  time*rf*8, vertex.z + time*rf*9) * amp * treFr;
             vertex.multiplyScalar(distance);
-        });
+        }
+
+
+        // mesh.geometry.elementsNeedUpdate = true;
         mesh.geometry.verticesNeedUpdate = true;
         mesh.geometry.normalsNeedUpdate = true;
         mesh.geometry.computeVertexNormals();
         mesh.geometry.computeFaceNormals();
     }
+
 
     function makeRoughGround(mesh, distortionFr) {
         mesh.geometry.vertices.forEach(function (vertex, i) {

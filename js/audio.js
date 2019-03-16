@@ -146,46 +146,47 @@ function play( ) {
     ambientLight.intensity = 0.1;
     scene.add( ambientLight );
 
-    var intensity_SP = 0.8;
+    var intensity_SP = 0.9;
+    var dist_sp = 35;
 
     var spotLight = new THREE.SpotLight( 0xffffff );
     spotLight.intensity = intensity_SP;
-    spotLight.position.set(0, 75, 0);
+    spotLight.position.set(0, dist_sp, 0);
     spotLight.lookAt( ball );
     spotLight.castShadow = true;
     group.add( spotLight );
 
     var spotLight2 = new THREE.SpotLight( 0xffffff );
     spotLight2.intensity = intensity_SP;
-    spotLight2.position.set(0, -75, 0);
+    spotLight2.position.set(0, -dist_sp, 0);
     spotLight2.lookAt( ball );
     spotLight2.castShadow = true;
     group.add( spotLight2 );
 
     var spotLight = new THREE.SpotLight( 0xffffff );
     spotLight.intensity = intensity_SP;
-    spotLight.position.set(75, 0, 0);
+    spotLight.position.set(dist_sp, 0, 0);
     spotLight.lookAt( ball );
     spotLight.castShadow = true;
     group.add( spotLight );
 
     var spotLight2 = new THREE.SpotLight( 0xffffff );
     spotLight2.intensity = intensity_SP;
-    spotLight2.position.set(-75, 0, 0);
+    spotLight2.position.set(-dist_sp, 0, 0);
     spotLight2.lookAt( ball );
     spotLight2.castShadow = true;
     group.add( spotLight2 );
 
     var spotLight = new THREE.SpotLight( 0xffffff );
     spotLight.intensity = intensity_SP;
-    spotLight.position.set(0, 0, 75);
+    spotLight.position.set(0, 0, dist_sp);
     spotLight.lookAt( ball );
     spotLight.castShadow = true;
     group.add( spotLight );
 
     var spotLight2 = new THREE.SpotLight( 0xffffff );
     spotLight2.intensity = intensity_SP;
-    spotLight2.position.set(0, 0, -75);
+    spotLight2.position.set(0, 0, -dist_sp);
     spotLight2.lookAt( ball );
     spotLight2.castShadow = true;
     group.add( spotLight2 );

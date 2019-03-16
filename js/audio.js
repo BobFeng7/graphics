@@ -143,17 +143,17 @@ function play( ) {
     group.add( ball );
 
     var ambientLight = new THREE.AmbientLight( 0x5900b3 );
-    ambientLight.intensity = 0.3;
+    ambientLight.intensity = 0.4;
     scene.add( ambientLight );
 
-    var spotLight = new THREE.SpotLight( 0x000099 );
+    var spotLight = new THREE.SpotLight( 0x0000bb );
     spotLight.intensity = 0.9;
     spotLight.position.set(0, 55, 0);
     spotLight.lookAt( ball );
     spotLight.castShadow = true;
     group.add( spotLight );
 
-    var spotLight2 = new THREE.SpotLight( 0x990000 );
+    var spotLight2 = new THREE.SpotLight( 0xbb0000 );
     spotLight2.intensity = 0.9;
     spotLight2.position.set(0, -55, 0);
     spotLight2.lookAt( ball );

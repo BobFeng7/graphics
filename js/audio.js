@@ -133,8 +133,8 @@ function play( ) {
     var sphereGeometry = new THREE.SphereGeometry( 10, 64, 64 );
     var ballMaterial = new THREE.MeshLambertMaterial({
         // color: 0x000000,
-        // vertexColors: THREE.FaceColors,
-        // transparent: true,
+        vertexColors: THREE.FaceColors,
+        transparent: true,
         wireframe: true
     });
 
@@ -142,51 +142,56 @@ function play( ) {
     var ball = new THREE.Mesh( sphereGeometry, ballMaterial );
     group.add( ball );
 
-    var ambientLight = new THREE.AmbientLight( 0x5900b3 );
-    ambientLight.intensity = 0.4;
+    var ambientLight = new THREE.AmbientLight( 0xffffff );
+    ambientLight.intensity = 0.1;
     scene.add( ambientLight );
 
-    var spotLight = new THREE.SpotLight( 0x0000bb );
-    spotLight.intensity = 0.9;
-    spotLight.position.set(0, 55, 0);
+    var intensity_SP = 0.8;
+
+    var spotLight = new THREE.SpotLight( 0xffffff );
+    spotLight.intensity = intensity_SP;
+    spotLight.position.set(0, 75, 0);
     spotLight.lookAt( ball );
     spotLight.castShadow = true;
     group.add( spotLight );
 
-    var spotLight2 = new THREE.SpotLight( 0xbb0000 );
-    spotLight2.intensity = 0.9;
-    spotLight2.position.set(0, -55, 0);
+    var spotLight2 = new THREE.SpotLight( 0xffffff );
+    spotLight2.intensity = intensity_SP;
+    spotLight2.position.set(0, -75, 0);
     spotLight2.lookAt( ball );
     spotLight2.castShadow = true;
     group.add( spotLight2 );
 
-    // var spotLight = new THREE.SpotLight( 0xff00ff );
-    // spotLight.intensity = 0.9;
-    // spotLight.position.set(75, 0, 0);
-    // spotLight.lookAt( ball );
-    // spotLight.castShadow = true;
-    // group.add( spotLight );
+    var spotLight = new THREE.SpotLight( 0xffffff );
+    spotLight.intensity = intensity_SP;
+    spotLight.position.set(75, 0, 0);
+    spotLight.lookAt( ball );
+    spotLight.castShadow = true;
+    group.add( spotLight );
 
-    // var spotLight = new THREE.SpotLight( 0x00ffff );
-    // spotLight.intensity = 0.9;
-    // spotLight.position.set(-75, 0, 0);
-    // spotLight.lookAt( ball );
-    // spotLight.castShadow = true;
-    // group.add( spotLight );
+    var spotLight2 = new THREE.SpotLight( 0xffffff );
+    spotLight2.intensity = intensity_SP;
+    spotLight2.position.set(-75, 0, 0);
+    spotLight2.lookAt( ball );
+    spotLight2.castShadow = true;
+    group.add( spotLight2 );
 
-    // var spotLight = new THREE.SpotLight( 0xff00ff );
-    // spotLight.intensity = 0.9;
-    // spotLight.position.set(0, 0, 75);
-    // spotLight.lookAt( ball );
-    // spotLight.castShadow = true;
-    // group.add( spotLight );
+    var spotLight = new THREE.SpotLight( 0xffffff );
+    spotLight.intensity = intensity_SP;
+    spotLight.position.set(0, 0, 75);
+    spotLight.lookAt( ball );
+    spotLight.castShadow = true;
+    group.add( spotLight );
 
-    // var spotLight = new THREE.SpotLight( 0x0000ff );
-    // spotLight.intensity = 0.9;
-    // spotLight.position.set(0, 0, -75);
-    // spotLight.lookAt( ball );
-    // spotLight.castShadow = true;
-    // group.add( spotLight );
+    var spotLight2 = new THREE.SpotLight( 0xffffff );
+    spotLight2.intensity = intensity_SP;
+    spotLight2.position.set(0, 0, -75);
+    spotLight2.lookAt( ball );
+    spotLight2.castShadow = true;
+    group.add( spotLight2 );
+
+
+
 
 
 
@@ -262,7 +267,7 @@ function play( ) {
             var face = faces[i];
 
             x = Math.sqrt(vertex.x * vertex.x + vertex.y * vertex.y + vertex.z * vertex.z);
-            // face.color = new THREE.Color( vertex.x/x, vertex.y/x, vertex.z/x, 0.1 );    
+            face.color = new THREE.Color( vertex.x/x, vertex.y/x, vertex.z/x );    
         }
 
         // corrective for missing vertices
@@ -278,7 +283,7 @@ function play( ) {
         }
 
 
-        // mesh.geometry.elementsNeedUpdate = true;
+        mesh.geometry.elementsNeedUpdate = true;
         mesh.geometry.verticesNeedUpdate = true;
         mesh.geometry.normalsNeedUpdate = true;
         mesh.geometry.computeVertexNormals();

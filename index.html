@@ -52,7 +52,7 @@
       uniform float time; 
       uniform vec2 resolution; 
       varying vec4 _position;
-      vec4 colorRandom = vec4(abs(cos(time/5.0)), abs(sin(time/4.0)), abs(cos(time/3.0)), 0.3);
+      vec4 colorRandom = vec4(1.0-abs(sin(time/3.0)), 1.0-abs(cos(time/4.0)), 1.0-abs(sin(time/5.0)), 0.3);
       void main() {
         gl_FragColor = colorRandom;
       }

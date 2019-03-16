@@ -202,7 +202,7 @@ function play( ) {
     function update( ) {
         var elapsedMilliseconds = Date.now() - startTime;
         var elapsedSeconds = elapsedMilliseconds / 1000;
-        uniforms.time.value = elapsedSeconds / 4;
+        uniforms.time.value = elapsedSeconds / 2;
 
     }
 
@@ -228,7 +228,7 @@ function play( ) {
 
         makeRoughBall( ball, modulate( Math.pow( lowerMaxFr, 0.8 ), 0, 1, 0, 8 ), modulate( upperAvgFr, 0, 1, 0, 4 ) );
 
-        group.rotation.y += 0.0025;
+        group.rotation.y += 0.0035;
         renderer.render( scene, camera );
     }
 

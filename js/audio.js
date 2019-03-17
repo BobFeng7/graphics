@@ -271,7 +271,7 @@ function play( ) {
 
             var x = (vertex.x)/(d);
             var y = (vertex.y)/(d);
-            var z = (vertex.z+10)/(d);
+            var z = (vertex.z+15)/(d);
             face.color = new THREE.Color( x, y, z );    
         }
 

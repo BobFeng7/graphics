@@ -82,10 +82,10 @@ function play( ) {
     // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     uniforms = {
         time: { type: "f", value: 1.0 },
-        resolution: { type: "v2", value: new THREE.Vector2( ) }
+        scale: { type: "f", value: 0.7 },
+        speed: { type: "f", value: 0.5 },
+        resolution: { type: "v2", value: new THREE.Vector2( window.innerWidth, window.innerHeight  ) }
     };
-    uniforms.resolution.value.x = window.innerWidth;
-    uniforms.resolution.value.y = window.innerHeight;
 
 
 
@@ -113,7 +113,7 @@ function play( ) {
     var planeMaterialCos = new THREE.ShaderMaterial ({
         uniforms: uniforms,
         vertexShader: document.getElementById("vertexShader").textContent,
-        fragmentShader: document.getElementById("fragmentShaderCos").textContent,
+        fragmentShader: document.getElementById("fragmentShaderSin").textContent,
         transparent: true,
         wireframe: true,
         side: THREE.DoubleSide
@@ -135,13 +135,26 @@ function play( ) {
         // color: 0x000000,
         vertexColors: THREE.FaceColors,
         transparent: true,
-        wireframe: true
+        wireframe: true,
     });
+    var ballShaderMaterial = new THREE.ShaderMaterial({
+        uniforms: uniforms,
+        vertexShader: document.getElementById("vertexShaderNoise").textContent,
+        fragmentShader: document.getElementById("fragmentShaderNoise").textContent,
+        wireframe: true,
+        // transparent: true
+    })
 
     // var ball = new THREE.Mesh( ballGeometry, ballMaterial );
-    var ball = new THREE.Mesh( sphereGeometry, ballMaterial );
+    var ball = new THREE.Mesh( sphereGeometry, ballShaderMaterial );
     group.add( ball );
 
+
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+  // |                                                                           | 
+  // |                           Create Lighting                                 | 
+  // |                                                                           | 
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     var ambientLight = new THREE.AmbientLight( 0xffffff );
     ambientLight.intensity = 0.1;
     scene.add( ambientLight );
@@ -178,7 +191,7 @@ function play( ) {
     group.add( spotLight4 );
 
     var spotLight5 = new THREE.SpotLight( 0xffffff );
-    spotLight5.intensity = intensity_SP;
+    spotLight5.intensity = 1.0;
     spotLight5.position.set(0, 0, dist_sp);
     spotLight5.lookAt( ball );
     spotLight5.castShadow = true;
@@ -234,7 +247,7 @@ function play( ) {
 
         makeRoughBall( ball, modulate( Math.pow( lowerMaxFr, 0.8 ), 0, 1, 0, 8 ), modulate( upperAvgFr, 0, 1, 0, 4 ) );
 
-        group.rotation.y += 0.0035;
+        group.rotation.y += 0.004;
         renderer.render( scene, camera );
     }
 
@@ -250,42 +263,57 @@ function play( ) {
         var faces = mesh.geometry.faces;
 
         var x;
-        for ( var i = 0; i < faces.length; i++ ) {
+        for ( var i = 0; i < vertices.length; i++ ) {
             var vertex;
-            if (i % 2 == 0) {
-                vertex = vertices[i/2];
+            vertex = vertices[i];
 
-                var offset = mesh.geometry.parameters.radius;
-                var amp = 7;
-                var time = window.performance.now();
-                vertex.normalize();
-                var rf = 0.00001;
-                var distance = (offset + bassFr) + noise.noise3D( vertex.x + time *rf*7, vertex.y +  time*rf*8, vertex.z + time*rf*9 ) * amp * treFr;
-                vertex.multiplyScalar( distance );
-            }
-            
-
-            var face = faces[i];
-
-            d = Math.sqrt(vertex.x * vertex.x + vertex.y * vertex.y + vertex.z * vertex.z);
-
-            var x = (vertex.x)/(d);
-            var y = (vertex.y)/(d);
-            var z = (vertex.z+15)/(d);
-            face.color = new THREE.Color( x, y, z );    
-        }
-
-        // corrective for missing vertices
-        for ( var j = vertices.length - (faces.length % vertices.length); j < vertices.length; j ++ ) {
-            var vertex = vertices[j];
             var offset = mesh.geometry.parameters.radius;
             var amp = 7;
             var time = window.performance.now();
             vertex.normalize();
             var rf = 0.00001;
-            var distance = (offset + bassFr) + noise.noise3D(vertex.x + time *rf*7, vertex.y +  time*rf*8, vertex.z + time*rf*9) * amp * treFr;
-            vertex.multiplyScalar(distance);
+            var distance = (offset + bassFr) + noise.noise3D( vertex.x + time *rf*7, vertex.y +  time*rf*8, vertex.z + time*rf*9 ) * amp * treFr;
+            vertex.multiplyScalar( distance );
         }
+
+
+        // var x;
+        // for ( var i = 0; i < faces.length; i++ ) {
+        //     var vertex;
+        //     if (i % 2 == 0) {
+        //         vertex = vertices[i/2];
+
+        //         var offset = mesh.geometry.parameters.radius;
+        //         var amp = 7;
+        //         var time = window.performance.now();
+        //         vertex.normalize();
+        //         var rf = 0.00001;
+        //         var distance = (offset + bassFr) + noise.noise3D( vertex.x + time *rf*7, vertex.y +  time*rf*8, vertex.z + time*rf*9 ) * amp * treFr;
+        //         vertex.multiplyScalar( distance );
+        //     }
+            
+
+        //     var face = faces[i];
+
+        //     d = Math.sqrt(vertex.x * vertex.x + vertex.y * vertex.y + vertex.z * vertex.z);
+
+        //     var x = (vertex.x*distance)/(d);
+        //     var y = (vertex.y*distance)/(d);
+        //     var z = (vertex.z*distance)/(d);
+        //     face.color = new THREE.Color( x, y, z );    
+        // }
+
+        // // corrective for missing vertices
+        // for ( var j = vertices.length - (faces.length % vertices.length); j < vertices.length; j ++ ) {
+        //     var vertex = vertices[j];
+        //     var offset = mesh.geometry.parameters.radius;
+        //     var amp = 7;
+        //     var time = window.performance.now();
+        //     vertex.normalize();
+        //     var rf = 0.00001;
+        //     var distance = (offset + bassFr) + noise.noise3D(vertex.x + time *rf*7, vertex.y +  time*rf*8, vertex.z + time*rf*9) * amp * treFr;
+        //     vertex.multiplyScalar(distance);
+        // }
 
 
         mesh.geometry.elementsNeedUpdate = true;
